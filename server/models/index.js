@@ -7,15 +7,17 @@ module.exports = {
   messages: {
     get: function (callback) {
       // a function which produces all the messages
-      var queryString = "SELECT message FROM message retrieve everything";
+      var queryString = "SELECT message.objectID, message.message, room FROM message \
+                         LEFT OUTER JOIN user \
+                         ON message.id = user.id";
       db.query(queryString, function(err, results){
         callback(results);
       });
     },
-    post: function (messageParameter, callback) {
+    post: function (messageParameters, callback) {
       // a function which can be used to insert a message into the database
-      var qurtyString = "INSERT INTO message (message) VALUES (?) do join here";
-      db.query( qurtyString, messageParameter, function(err, results){
+      var queryString = "INSERT INTO messages (objectID, message, room) VALUES (?, ?, ?)";
+      db.query(queryString, messageParameters, function(err, results){
         callback(results);
       });
     }

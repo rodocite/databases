@@ -2,9 +2,9 @@ CREATE DATABASE chat;
 
 USE chat;
 
-DROP TABLE IF EXISTS `message`;
+DROP TABLE IF EXISTS `messages`;
 
-CREATE TABLE `message` (
+CREATE TABLE `messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `objectID` INTEGER NOT NULL,
   `message` VARCHAR(140) NULL DEFAULT NULL,

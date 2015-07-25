@@ -7,11 +7,19 @@ module.exports = {
   messages: {
     get: function (req, res) {
       // a function which handles a get request for all messages
-      models.messages.get();
+      console.log(req);
+      models.messages.get(function(err, result){
+        res.status(200).json(result).end();
+      });
     },
     post: function (req, res) {
       // a function which handles posting a message to the database
-      models.messages.post();
+      // turn message into array before passing
+      console.log(req.body)
+      var messageParameters = [[objectId], [message], [room]];
+      models.messages.post(messageParameters, function(req, res){
+        res.json(req);
+      });
     }
   },
 
