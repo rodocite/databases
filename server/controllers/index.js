@@ -1,32 +1,41 @@
 var models = require('../models');
 var bluebird = require('bluebird');
 
-
-
 module.exports = {
   messages: {
     get: function (req, res) {
-      // a function which handles a get request for all messages
-      console.log(req);
-      models.messages.get(function(err, result){
-        res.status(200).json(result).end();
+      models.messages.get(function(result){
+        res.json(result);
       });
+
+
     },
     post: function (req, res) {
-      // a function which handles posting a message to the database
-      // turn message into array before passing
-      console.log(req.body)
-      var messageParameters = [[objectId], [message], [room]];
-      models.messages.post(messageParameters, function(req, res){
-        res.json(req);
+      var messageParameters = [req.body.username, req.body.text, req.body.roomname];
+      models.users.post([req.body.username], function(){
+        models.messages.post(messageParameters, function(){
+          res.status(201).end();
+        });
       });
+      console.log("messageParameters", messageParameters);
     }
   },
 
   users: {
     // Ditto as above
-    get: function (req, res) {},
-    post: function (req, res) {}
+    get: function (req, res) {
+      console.log('GET THE USER CONTROLLER');
+      models.users.get(function(results) {
+        res.json(results);
+      });
+    },
+    post: function (req, res) {
+      var userNameParameter = req.body.username;
+      console.log("USER POST CONTROLLER: ", userNameParameter);
+      models.users.post(userNameParameter, function() {
+        res.send('success');
+      });
+    }
   }
 };
 

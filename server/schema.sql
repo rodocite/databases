@@ -5,11 +5,12 @@ USE chat;
 DROP TABLE IF EXISTS `messages`;
 
 CREATE TABLE `messages` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `objectID` INTEGER NOT NULL,
-  `message` VARCHAR(140) NULL DEFAULT NULL,
-  `room` VARCHAR(15) NOT NULL DEFAULT 'Lobby',
-  PRIMARY KEY (`id`)
+  `objectId` INTEGER NOT NULL AUTO_INCREMENT,
+  `userID` INTEGER NOT NULL,
+  `text` VARCHAR(140) NULL DEFAULT NULL,
+  `roomname` VARCHAR(15) NOT NULL DEFAULT 'Lobby',
+
+  PRIMARY KEY (`objectId`)
 );
 
 /* Create other tables and define schemas for them here! */
@@ -17,7 +18,7 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(15) NOT NULL DEFAULT 'Anonymous',
+  `username` VARCHAR(15) NOT NULL UNIQUE,
   PRIMARY KEY (`id`)
 );
 
